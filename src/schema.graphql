@@ -1,7 +1,7 @@
 type Query {
-    users: [User!]!
-    user(id: ID!): User!
     hello: String
+    users: [User!]!
+    user(id: String): [User]!
 }
 
 type User {
