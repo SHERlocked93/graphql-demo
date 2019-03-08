@@ -28,9 +28,21 @@ const createUser = ({ id, name, email, age }) =>
 const deleteUser = ({ id }) =>
   new Promise(resolve => DbConn.deleteOne('users', { id }, resolve))
 
+/**
+ * 更新用户
+ * @param id
+ * @param name
+ * @returns {Promise<any>}
+ * @param email
+ * @param age
+ */
+const updateUser = ({ id, name, email, age }) =>
+  new Promise(resolve => DbConn.updateOne('users', { id }, { $set: { id, name, email, age } }, resolve))
+
 module.exports = {
   users: findUsers,
   user: findUsers,
   createUser,
-  deleteUser
+  deleteUser,
+  updateUser
 }
