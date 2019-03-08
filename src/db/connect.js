@@ -13,7 +13,7 @@ const { DB_URL, DEFAULT_BASE } = require('./setting.js')
  * @private
  */
 function _connectDB(callback) {
-  MongoClient.connect(DB_URL, { useNewUrlParser: true }, function(err, db) {
+  MongoClient.connect(DB_URL, { useNewUrlParser: true }, (err, db) => {
     if (err) {
       console.log('😱 数据库连接出错 ！')
       callback(err, null)
@@ -59,20 +59,19 @@ exports.insertOne = function(collectionName, data, callback) {
 }
 
 /**
- * 删
+ * 删除单个用户，如果成功就把删除的用户返回
  * @param collectionName
  * @param data
  * @param callback
  */
-exports.deleteMany = function(collectionName, data, callback) {
+exports.deleteOne = function(collectionName, data, callback) {
   _connectDB(function(err, db) {
-    db.collection(collectionName).deleteMany(
-      data,
-      function(err, results) {
-        callback(err, results)
-        db.close()
-      }
-    )
+    db.collection(collectionName)
+      .deleteOne(data, (err, results) => {
+          if (err) throw err
+          callback(data)
+        }
+      )
   })
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "graphql-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "这个例子演示了如何使用 GraphQL 来操作 MongoDB\n",
   "main": "server.js",
   "dependencies": {
     "_accepts@1.3.5@accepts": "^1.3.5",
