@@ -1,6 +1,13 @@
+/**
+ * 创建于 2019-03-10
+ * 作者: SHERlocked93
+ * 功能: resolvers 实现
+ */
+
+
 import Db from '../db'
 
-const { PubSub } = require('apollo-server')
+const { PubSub, withFilter } = require('apollo-server')
 const pubsub = new PubSub()
 
 export default {
@@ -40,7 +47,10 @@ export default {
     },
     Subscription: {
         subsUser: {
-            subscribe: (parent, { id }) => pubsub.asyncIterator(['USER_UPDATE'])
+            subscribe: withFilter(
+                (parent, { id }) => pubsub.asyncIterator('USER_UPDATE'),
+                (payload, variables) => payload.subsUser.id === variables.id
+            )
         }
     }
 }
