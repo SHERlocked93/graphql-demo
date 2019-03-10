@@ -1,18 +1,35 @@
+# 查询入口
 type Query {
     hello: String
     users: [User!]!
     user(id: String): [User]!
 }
 
-type User {
+type User implements UserInterface {
     id: ID!
     name: String!
-    email: String!
     age: Int
+    gender: Gender
+    email: String!
 }
 
+# 枚举
+enum Gender {
+    MAN
+    WOMAN
+}
+
+# 接口
+interface UserInterface {
+    id: ID!
+    name: String!
+    age: Int
+    gender: Gender
+}
+
+# 变更入口
 type Mutation {
-    createUser(id: ID!, name: String!, email: String!, age: Int): User!
-    updateUser(id: ID!, name: String, email: String, age: Int): User!
+    createUser(id: ID!, name: String!, email: String!, age: Int, gender: Gender): User!
+    updateUser(id: ID!, name: String, email: String, age: Int, gender: Gender): User!
     deleteUser(id: ID!): User
 }

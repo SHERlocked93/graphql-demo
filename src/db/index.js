@@ -15,9 +15,10 @@ const findUsers = data =>
  * @param email
  * @param age
  * @returns {Promise<any>}
+ * @param gender
  */
-const createUser = ({ id, name, email, age }) =>
-  new Promise(resolve => DbConn.insertOne('users', { id, name, email, age }, resolve))
+const createUser = ({ id, name, email, age, gender }) =>
+  new Promise(resolve => DbConn.insertOne('users', { id, name, email, age, gender }, resolve))
 
 /**
  * 删除用户
@@ -35,14 +36,15 @@ const deleteUser = ({ id }) =>
  * @returns {Promise<any>}
  * @param email
  * @param age
+ * @param gender
  */
-const updateUser = ({ id, name, email, age }) =>
-  new Promise(resolve => DbConn.updateOne('users', { id }, { $set: { id, name, email, age } }, resolve))
+const updateUser = ({ id, name, email, age, gender }) =>
+  new Promise(resolve => DbConn.updateOne('users', { id }, { $set: { id, name, email, age, gender } }, resolve))
 
 module.exports = {
-  users: findUsers,
-  user: findUsers,
-  createUser,
-  deleteUser,
-  updateUser
+    users: findUsers,
+    user: findUsers,
+    createUser,
+    deleteUser,
+    updateUser
 }
