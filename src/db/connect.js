@@ -13,15 +13,15 @@ const { DB_URL, DEFAULT_BASE } = require('./setting.js')
  * @private
  */
 function _connectDB(callback) {
-  MongoClient.connect(DB_URL, { useNewUrlParser: true }, (err, db) => {
-    if (err) {
-      console.log('😱 数据库连接出错 ！')
-      callback(err, null)
-      return
-    }
-    callback(err, db.db(DEFAULT_BASE))
-    db.close()
-  })
+    MongoClient.connect(DB_URL, { useNewUrlParser: true }, (err, db) => {
+        if (err) {
+            console.log('😱 数据库连接出错 ！')
+            callback(err, null)
+            return
+        }
+        callback(err, db.db(DEFAULT_BASE))
+        db.close()
+    })
 }
 
 /**
@@ -31,14 +31,14 @@ function _connectDB(callback) {
  * @param callback
  */
 exports.find = function(collectionName, data, callback) {
-  _connectDB((err, db) =>
-    db.collection(collectionName)
-      .find(data)
-      .toArray((err, result) => {
-        if (err) throw err
-        callback(result)
-      })
-  )
+    _connectDB((err, db) =>
+        db.collection(collectionName)
+            .find(data)
+            .toArray((err, result) => {
+                if (err) throw err
+                callback(result)
+            })
+    )
 }
 
 /**
@@ -48,13 +48,13 @@ exports.find = function(collectionName, data, callback) {
  * @param callback
  */
 exports.insertOne = function(collectionName, data, callback) {
-  _connectDB((err, db) =>
-    db.collection(collectionName)
-      .insertOne(data, (err, result) => {
-        if (err) throw err
-        callback(data)
-      })
-  )
+    _connectDB((err, db) =>
+        db.collection(collectionName)
+            .insertOne(data, (err, result) => {
+                if (err) throw err
+                callback(data)
+            })
+    )
 }
 
 /**
@@ -64,14 +64,14 @@ exports.insertOne = function(collectionName, data, callback) {
  * @param callback
  */
 exports.deleteOne = function(collectionName, data, callback) {
-  _connectDB((err, db) =>
-    db.collection(collectionName)
-      .deleteOne(data, (err, results) => {
-          if (err) throw err
-          callback(data)
-        }
-      )
-  )
+    _connectDB((err, db) =>
+        db.collection(collectionName)
+            .deleteOne(data, (err, results) => {
+                    if (err) throw err
+                    callback(data)
+                }
+            )
+    )
 }
 
 /**
@@ -82,11 +82,11 @@ exports.deleteOne = function(collectionName, data, callback) {
  * @param callback
  */
 exports.updateOne = function(collectionName, data, targ, callback) {
-  _connectDB((err, db) =>
-    db.collection(collectionName)
-      .updateOne(data, targ, (err, results) => {
-        if (err) throw err
-        callback(targ['$set'])
-      })
-  )
+    _connectDB((err, db) =>
+        db.collection(collectionName)
+            .updateOne(data, targ, (err, results) => {
+                if (err) throw err
+                callback(targ['$set'])
+            })
+    )
 }

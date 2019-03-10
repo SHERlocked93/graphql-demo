@@ -1,5 +1,8 @@
 import Db from '../db'
 
+const { PubSub } = require('apollo-server')
+const pubsub = new PubSub()
+
 export default {
     Query: {
         hello: () => 'Hello world!',
@@ -21,6 +24,10 @@ export default {
                 return existUsers[0]
             })
             .then(() => Db.updateUser({ id, name, email, age, gender }))
+            .then(user => {
+                pubsub.publish('USER_UPDATE', { subsUser: user })
+                return user
+            })
         ,
         deleteUser: (parent, { id }) => Db.user({ id })
             .then(existUsers => {
@@ -30,5 +37,10 @@ export default {
             })
             .then(user => new Promise(resolve => Db.deleteUser(user)
                 .then(_ => resolve(user))))
+    },
+    Subscription: {
+        subsUser: {
+            subscribe: (parent, { id }) => pubsub.asyncIterator(['USER_UPDATE'])
+        }
     }
 }

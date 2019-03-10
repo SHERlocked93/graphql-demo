@@ -33,3 +33,7 @@ type Mutation {
     updateUser(id: ID!, name: String, email: String, age: Int, gender: Gender): User!
     deleteUser(id: ID!): User
 }
+
+type Subscription {
+    subsUser(id: ID!): User
+}
