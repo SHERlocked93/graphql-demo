@@ -42,6 +42,22 @@ exports.find = function(collectionName, data, callback) {
 }
 
 /**
+ * 查询数据，如果成功则返回一个数组
+ * @param collectionName
+ * @param data
+ * @param callback
+ */
+exports.findOne = function(collectionName, data, callback) {
+    _connectDB((err, db) =>
+        db.collection(collectionName)
+            .findOne(data, (err, result) => {
+                if (err) throw err
+                callback(result)
+            })
+    )
+}
+
+/**
  * 插入一条数据，如果成功就把插入的数据返回
  * @param collectionName
  * @param data

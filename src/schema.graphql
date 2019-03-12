@@ -2,7 +2,7 @@
 type Query {
     hello: String
     users: [User]!
-    user(id: String): [User]!
+    user(id: String): User
 }
 
 # Mutation 入口

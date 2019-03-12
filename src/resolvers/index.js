@@ -13,7 +13,7 @@ const pubsub = new PubSub()
 export default {
     Query: {
         hello: () => 'Hello world!',
-        user: (parent, { id }) => Db.users({ id }),
+        user: (parent, { id }) => Db.user({ id }),
         users: (parent, args) => Db.users({})
     },
     Mutation: {
