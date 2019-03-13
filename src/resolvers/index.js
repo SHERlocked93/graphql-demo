@@ -15,8 +15,8 @@ const USER_UPDATE_CHANNEL = 'USER_UPDATE'
 export default {
     Query: {
         hello: () => 'Hello world!',
-        user: (parent, { id }) => Db.user({ id }),
-        users: (parent, args) => Db.users({})
+        users: (parent, args) => Db.users({}),
+        user: (parent, { id }) => Db.user({ id })
     },
     Mutation: {
         createUser: (parent, { id, name, email, age, gender }) => Db.user({ id })
@@ -55,6 +55,7 @@ export default {
             ),
             resolve: (payload, variables) => {
                 console.log('🚢 接收到数据： ', payload)
+                return payload.subsUser
             }
         }
     }
